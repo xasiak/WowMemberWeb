@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import notice.model.service.NoticeService;
 import notice.model.vo.Notice;
+import notice.model.vo.PageData;
 
 /**
  * Servlet implementation class ListController
@@ -33,8 +34,11 @@ public class ListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		NoticeService service = new NoticeService();
-		List<Notice> nList = service.selectNoticeList();
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		PageData pd = service.selectNoticeList(currentPage);
+		List<Notice> nList = pd.getnList();
 		request.setAttribute("nList", nList);
+		request.setAttribute("pageNavi", pd.getPageNavi());
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/notice/list.jsp");
 		view.forward(request, response);
 	}
