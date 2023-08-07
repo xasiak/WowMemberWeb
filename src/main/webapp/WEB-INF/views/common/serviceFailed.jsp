@@ -8,5 +8,12 @@
 	</head>
 	<body>
 		<h1>서비스 결과 실패</h1>
+		<h2>${requestScope.msg }</h2>
+		<script>
+			const result = '${msg}';
+			const url = '${url}';
+			alert(result);
+			location.href = url;
+		</script>
 	</body>
 </html>
